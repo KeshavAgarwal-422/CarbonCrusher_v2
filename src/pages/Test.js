@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const Test = () => {
-
-    return (<> <GyroscopeReading></GyroscopeReading></>)
-}
-
-
-
-
-
-
+  return (
+    <>
+      {" "}
+      <GyroscopeReading></GyroscopeReading>
+    </>
+  );
+};
 
 export default Test;
