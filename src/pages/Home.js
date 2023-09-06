@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import DateSelector from '../Components/Calander';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { IoTimeSharp } from 'react-icons/io5';
+import { IoTimeSharp, IoTrashBinSharp } from 'react-icons/io5';
 import { GiPathDistance } from 'react-icons/gi';
 import { MdCo2 } from 'react-icons/md';
 import { FaCarSide, FaPerson, FaPersonWalking, FaTrainTram } from 'react-icons/fa6';
 import { FaCarAlt } from 'react-icons/fa';
 import { RiEBikeFill } from 'react-icons/ri';
+import { useStateContext } from '../Context';
 
 
 
 const Home = () => {
+    const { user, selectedDateObj, handleUserSearch, handleActivitySearch, transportActivities } = useStateContext();
 
     let transportModeArray = [{
 
@@ -53,6 +55,19 @@ const Home = () => {
     },
 
     ]
+
+    useEffect(() => {
+        Object.keys(user).length === 0 ? handleUserSearch() : null;
+        handleActivitySearch();
+    }, [])
+
+    useEffect(() => {
+        console.log(transportActivities);
+    }, [transportActivities]);
+
+
+
+
     return (
         <div className='flex flex-col items-center justify-start w-full h-full'>
             <h2 className='w-full text-[6vw] pl-[15vw] py-[1vh] text-left'>Hi, Keshav</h2>

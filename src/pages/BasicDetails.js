@@ -1,22 +1,77 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStateContext } from '../Context';
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
+
+
 
 const BasicInfoForm = () => {
     const nav = useNavigate();
-    const { transportMode } = useStateContext();
+    const { transportMode, user, setUser, setIsLoggedIn } = useStateContext();
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
     const [email, setEmail] = useState('');
     const [submitted, setSubmitted] = useState(false);
 
+    const handleAddUser = async () => {
+        try {
+            const docRef = await addDoc(collection(db, "users"), user).then(() => {
+                console.log("User Added Successfully");
+                setIsLoggedIn(true);
+            })
+        } catch (error) {
+            console.error("Error adding new user:", error);
+        }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Perform any validation or data submission here
-        // For now, we'll just set the submitted state to true
         setSubmitted(true);
+        setUser({
+            ...user,
+            name: name,
+            phoneNumber: parseInt(localStorage.getItem("phoneNumber")),
+            age: age,
+            gender: gender,
+            email: email,
+            walletAmount: 0,
+            timestamp: new Date().toLocaleString(),
+            couponsRedeemed: [],
+            tokensTransfered: [],
+            tokensReceived: [],
+            totalTransportActivities: {
+                duration: 0,
+                distance: 0,
+                carbonConsumption: 0
+            },
+            transportActivites: [{
+                timestamp: new Date().toLocaleString(),
+                Still: {
+                    duration: 0,
+                    distance: 0,
+                    carbonConsumption: 0
+                }, Walking: {
+                    duration: 0,
+                    distance: 0,
+                    carbonConsumption: 0
+                }, Train: {
+                    duration: 0,
+                    distance: 0,
+                    carbonConsumption: 0
+                }, Bike: {
+                    duration: 0,
+                    distance: 0,
+                    carbonConsumption: 0
+                }, Car: {
+                    duration: 0,
+                    distance: 0,
+                    carbonConsumption: 0
+                }
+            }],
+        })
+        handleAddUser();
         nav("/home")
     };
     useEffect(() => { }, [transportMode])
@@ -42,7 +97,6 @@ const BasicInfoForm = () => {
                         value={age}
                         onChange={(e) => setAge(e.target.value)}
                         className="px-[3vw] py-[2vw] text-[4vw] my-[2vw] bg-[#272727] rounded-3xl text-[#CFFF0F] focus:border-[#CFFF0F]"
-
                         required
                     />
 
@@ -53,7 +107,6 @@ const BasicInfoForm = () => {
                         value={gender}
                         onChange={(e) => setGender(e.target.value)}
                         className="px-[3vw] py-[2vw] text-[4vw] my-[2vw] bg-[#272727] rounded-3xl text-[#CFFF0F] focus:border-[#CFFF0F]"
-
                         required
                     />
 

@@ -21,6 +21,7 @@ import SensorComponent from "./Components/SensorComponent";
 import BasicDetails from "./pages/BasicDetails";
 import Test from "./pages/Test";
 import { useStateContext } from "./Context";
+import Loading from "./Components/Loading";
 
 
 function App() {
@@ -28,10 +29,8 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = location.pathname;
-
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [activeTab, setActiveTab] = useState('home');
-  const { transportMode } = useStateContext();
+  const { transportMode, loading, isLoggedIn } = useStateContext();
 
   const tabs = [
     { name: 'home', icon: <IoHome></IoHome> },
@@ -50,7 +49,7 @@ function App() {
     'Car': <FaCarAlt />,
   };
 
-  useEffect(() => { }, [transportMode])
+  useEffect(() => { }, [transportMode, loading, isLoggedIn])
   useEffect(() => {
     if (action !== "POP") {
       window.scrollTo(0, 0);
@@ -85,11 +84,9 @@ function App() {
   return (
     <div className="h-screen w-screen bg-[#141414] text-[#E0FF63] font-outfit relative overflow-y-auto">
       <SensorComponent />
-      <Routes>
-
+      {loading ? <Loading /> : (<Routes>
         <Route path="/" element={<Introduction />} />
         <Route path="/test" element={<SensorComponent />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/basic-details" element={<BasicDetails />} />
         <Route path="/home" element={<Home />} />
@@ -97,9 +94,7 @@ function App() {
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/redeem" element={<Redemption />} />
         <Route path="/wallet" element={<Wallet />} />
-
-
-      </Routes>
+      </Routes>)}
 
       {isLoggedIn ? (<> <div className="fixed bottom-0 left-0 w-full h-[8vh] bg-[#141414] flex justify-around items-center rounded-s-xl">
         {tabs.map((tab) => (

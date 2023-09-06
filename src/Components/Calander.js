@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useStateContext } from "../Context";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { IoCalendarSharp } from 'react-icons/io5';
@@ -23,6 +24,8 @@ const DateSelector = () => {
     const [selectedMonth, setSelectedMonth] = useState(presentDate.getMonth());
     const [selectedDate, setSelectedDate] = useState(presentDate.getDate());
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const { setSelectedDateObj } = useStateContext();
+
 
     const months = [
         'January',
@@ -66,6 +69,7 @@ const DateSelector = () => {
         if (!isDisabled) {
             setSelectedDate(date);
             const selectedDateObj = new Date(selectedYear, selectedMonth, date);
+            setSelectedDateObj(new Date(selectedDateObj));
             console.log('Selected Date:', selectedDateObj.toDateString());
         }
     };
