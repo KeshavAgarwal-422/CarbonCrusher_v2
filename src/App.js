@@ -12,7 +12,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Redemption from "./pages/Redemption";
 import { IoHome, IoNotificationsSharp, IoPersonSharp, IoPricetagsSharp, IoWalletSharp } from "react-icons/io5"
-import { FaCarSide, FaPerson, FaPersonWalking, FaTrainTram } from 'react-icons/fa6';
+import {  FaPerson, FaPersonWalking, FaTrainTram } from 'react-icons/fa6';
 import { FaCarAlt } from 'react-icons/fa';
 import { RiEBikeFill } from 'react-icons/ri'
 import Notifications from "./pages/Notifications";
