@@ -62,8 +62,8 @@ const Home = () => {
     }, [])
 
     useEffect(() => {
-        console.log(transportActivities);
-    }, [transportActivities]);
+        console.log(selectedDateObj);
+    }, []);
 
 
 
