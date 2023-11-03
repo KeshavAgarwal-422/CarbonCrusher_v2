@@ -12,8 +12,8 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Redemption from "./pages/Redemption";
 import { IoHome, IoNotificationsSharp, IoPersonSharp, IoPricetagsSharp, IoWalletSharp } from "react-icons/io5"
-import {  FaPerson, FaPersonWalking, FaTrainTram } from 'react-icons/fa6';
-import { FaCarAlt } from 'react-icons/fa';
+import { FaPerson, FaPersonWalking, FaTrainTram } from 'react-icons/fa6';
+import { FaCarAlt, FaCarCrash } from 'react-icons/fa';
 import { RiEBikeFill } from 'react-icons/ri'
 import Notifications from "./pages/Notifications";
 import Wallet from "./pages/Wallet";
@@ -47,6 +47,7 @@ function App() {
     'Train': <FaTrainTram />,
     'Bike': <RiEBikeFill />,
     'Car': <FaCarAlt />,
+    'Crash Detected': <FaCarCrash />
   };
 
   useEffect(() => { }, [transportMode, loading, isLoggedIn])
@@ -83,6 +84,7 @@ function App() {
 
   return (
     <div className="h-screen w-screen bg-[#141414] text-[#E0FF63] font-outfit relative overflow-y-auto">
+      {transportMode === 'Crash Detected' && <div className="absolute top-0 left-0 z-10 flex items-center justify-center w-full h-10 text-lg text-white bg-red-500 text-4">Crash Detected</div>}
       <SensorComponent />
       {loading ? <Loading /> : (<Routes>
         <Route path="/" element={<Introduction />} />
@@ -95,7 +97,6 @@ function App() {
         <Route path="/redeem" element={<Redemption />} />
         <Route path="/wallet" element={<Wallet />} />
       </Routes>)}
-
       {isLoggedIn ? (<> <div className="fixed bottom-0 left-0 w-full h-[8vh] bg-[#141414] flex justify-around items-center rounded-s-xl">
         {tabs.map((tab) => (
           <div

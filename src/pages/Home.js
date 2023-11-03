@@ -75,7 +75,7 @@ const Home = () => {
             <div className='w-[78%] h-[40vw] my-[8vw] px-[4vw] rounded-3xl bg-[#272727] flex  justify-between items-center'>
                 <div className='w-[44%]'>
                     <CircularProgressbarWithChildren
-                        value={(10 / 22) * 100}
+                        value={(12 / 22) * 100}
                         strokeWidth={12}
                         styles={buildStyles({
                             pathColor: "red",
@@ -83,7 +83,7 @@ const Home = () => {
                         })}
                     >
                         <div style={{ fontSize: "4vw", marginTop: -5 }}>
-                            <strong>10/</strong> 22 kgCO2
+                            <strong>12/</strong> 22 kgCO2
                         </div>
                     </CircularProgressbarWithChildren>
                 </div>
@@ -97,7 +97,7 @@ const Home = () => {
                         <div className='text-[7vw] flex items-center text-blue-600'>
                             <GiPathDistance></GiPathDistance>
                         </div>
-                        <h3>20 Km</h3>
+                        <h3>22 Km</h3>
                     </div>
                 </div>
             </div>

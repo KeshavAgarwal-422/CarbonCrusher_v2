@@ -57,30 +57,31 @@ const SensorComponent = () => {
     useEffect(() => {
         const classifyTransportMode = (data) => {
             const maxAcceleration = Math.max(...data);
+            const minAcceleration = Math.min(...data);
 
-            if (maxAcceleration < 2) {
-                return 'Still';
+            const crashThreshold = 15;
+            if (maxAcceleration - minAcceleration >= crashThreshold) {
+                return 'Crash Detected';
+            } else {
+                if (maxAcceleration < 2) {
+                    return 'Still';
+                } else if (maxAcceleration >= 2 && maxAcceleration < 5) {
+                    return 'Walking';
+                } else if (maxAcceleration >= 5 && maxAcceleration < 10) {
+                    return 'Bike';
+                } else if (maxAcceleration >= 10 && maxAcceleration < 20) {
+                    return 'Car';
+                } else if (maxAcceleration >= 20) {
+                    return 'Train';
+                } else {
+                    return 'Unknown';
+                }
             }
-            else if (maxAcceleration >= 2 && maxAcceleration < 5) {
-                return 'Walking';
-            }
-            else if (maxAcceleration >= 5 && maxAcceleration < 10) {
-                return 'Bike';
-            }
-            else if (maxAcceleration >= 10 && maxAcceleration < 20) {
-                return 'Car';
-            }
-            else if (maxAcceleration >= 20) {
-                return 'Train';
-            }
-            else {
-                return 'Unknown';
-            }
-
         };
 
         const allData = [...accelerometerData.x, ...accelerometerData.y, ...accelerometerData.z];
         const newTransportMode = classifyTransportMode(allData);
+
         setTransportMode(newTransportMode);
     }, [accelerometerData]);
 
