@@ -14,20 +14,20 @@ const Login = () => {
     const [otp, setOtp] = useState("");
 
 
-    // const onCaptchVerify = () => {
-    //     if (!window?.recaptchaVerifier) {
-    //         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'send-otp-button',
-    //             {
-    //                 'size': 'invisible',
-    //                 'callback': (response) => {
-    //                     handleSendOtp();
-    //                 },
+    const onCaptchVerify = () => {
+        if (!window?.recaptchaVerifier) {
+            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'send-otp-button',
+                {
+                    'size': 'invisible',
+                    'callback': (response) => {
+                        handleSendOtp();
+                    },
 
-    //             },
+                },
 
-    //         );
-    //     }
-    // }
+            );
+        }
+    }
 
     const handleMobileNumberChange = (event) => {
         setMobileNumber(event.target.value);
